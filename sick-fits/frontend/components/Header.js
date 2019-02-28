@@ -9,6 +9,7 @@ Router.onRouteChangeStart = () => {
   console.log('onRouteChangeStart Triggered');
 };
 Router.onRouteChangeComplete = () => {
+  NProgress.done();
   console.log('onRouteChangeComplete Triggered');
 };
 Router.onRouteChangeError = () => {
