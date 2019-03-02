@@ -1,0 +1,2 @@
+endpoint: https://us1.prisma.sh/spencer-kyonka/sicker-fits/sicker-fits-stage
+datamodel: datamodel.prisma
