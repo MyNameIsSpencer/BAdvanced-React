@@ -2,6 +2,7 @@ const { forwardTo } = require('prisma-binding');
 
 const Query = {
   items: forwardTo('db'),
+  item: forwardTo('db'),
 
 // const Query = {
 //   dogs(parent, args, ctx, info) {
