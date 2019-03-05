@@ -1,0 +1,10 @@
+return (
+  <Container>
+    // <ApolloProvider client={this.props.apollo}>    //   <<< without destructuring
+    <ApolloProvider client={apollo}>
+      <Page>
+        <Component {...pageProps}/>
+      </Page>
+    </ApolloClient>
+  </Container>
+  
