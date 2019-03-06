@@ -26,7 +26,8 @@ const UPDATE_ITEM_MUTATION = gql`
       price
     }
   }
-`
+`;
+
 class UpdateItem extends Component {
   state = {};
   handleChange = e => {
@@ -47,6 +48,8 @@ class UpdateItem extends Component {
     console.log('Update!!');
   };
 
+  // VVV default value allows you to set one time value, in React default value allows you to set input box to some text without actually tying it to state
+  // VVV returning <Form> tag exposes both the data of the item and the updateItem function
   render() {
     return (
       <Query query={SINGLE_ITEM_QUERY} variables={{id: this.props.id,}}>
