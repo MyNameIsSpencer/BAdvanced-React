@@ -1,5 +1,7 @@
-// could have also exported database then imported here, but having access via ctx good enough
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
+// could have also exported database then imported here, but having access via ctx good enough
 const Mutations = {
   async createItem(parent, args, ctx, info) {
     // TODO: Check if they are logged in
@@ -45,6 +47,33 @@ const Mutations = {
     // TODO
     // 3. Delete it!
     return ctx.db.mutation.deleteItem({ where }, info);
+  },
+  // VVV  called signup because must match mutation name in schema
+  async signup(parent, args, ctx, info) {
+    // lowercase their email
+    args.email = args.email.toLowerCase();
+    // hash their password
+    const password = await bcrypt.hash(args.password, 10);
+    // create the user in the database
+    const user = await ctx.db.mutation.createUser(
+      {
+        data: {
+          ...args,
+          password,
+          permissions: { set: ['USER'] },   //  <<< cannot simply permissions: ['USER'] because enum requires you to set
+        },
+      },
+      info
+    );
+    // create the JWT token for them
+    const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
+    // We set the jwt as a cookie on the response
+    ctx.response.cookie('token', token, {
+      httpOnly: true,  // <<< you could get 3rd party javascript, or rogue.  You do not want JS access to your cookies
+      maxAge: 1000 * 60 * 60 * 24 * 365, // 1 year cookie
+    });
+    // Finalllllly we return the user to the browser
+    return user;
   },
   // createDog(parent, args, ctx, info) {
   //   globabl.dogs = global.dogs || [];
