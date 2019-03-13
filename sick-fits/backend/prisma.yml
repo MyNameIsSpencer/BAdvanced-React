@@ -1,5 +1,4 @@
-#endpoint: ${env:PRISMA_ENDPOINT}
-endpoint: https://us1.prisma.sh/spencer-kyonka/sick-fits2/sick-fits2-stage
+endpoint: ${env:PRISMA_ENDPOINT}
 # endpoint: https://us1.prisma.sh/spencer-kyonka/sicker-fits/sicker-fits-stage
 datamodel: datamodel.graphql
 # secret: ${env:PRISMA_SECRET}

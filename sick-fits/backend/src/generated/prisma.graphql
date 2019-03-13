@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/spencer-kyonka/sick-fits2/sick-fits2-stage
-# timestamp: Thu Mar 07 2019 14:10:59 GMT-0500 (EST)
+# timestamp: Wed Mar 13 2019 17:24:03 GMT-0400 (EDT)
 
 type AggregateItem {
   count: Int!
