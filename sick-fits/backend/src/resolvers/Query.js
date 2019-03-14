@@ -11,9 +11,15 @@ const Query = {
     }
     return ctx.db.query.user(
       { where: { id: ctx.request.userId }, },
-      info
+      info    // <<< actual query from client side
     );
   },
+
+// async items(parent, args, ctx, info) {
+// console.log('Getting Items!!');
+// const items = await ctx.db.query.items();
+// return items;
+// }
 
 // const Query = {
 //   dogs(parent, args, ctx, info) {

@@ -6,14 +6,15 @@ import NProgress from 'nprogress';
 
 Router.onRouteChangeStart = () => {
   NProgress.start();
-  console.log('onRouteChangeStart Triggered');
+  // console.log('onRouteChangeStart Triggered');
 };
 Router.onRouteChangeComplete = () => {
   NProgress.done();
-  console.log('onRouteChangeComplete Triggered');
+  // console.log('onRouteChangeComplete Triggered');
 };
 Router.onRouteChangeError = () => {
-  console.log('onRouteChangeError Triggered');
+  NProgress.done();
+  // console.log('onRouteChangeError Triggered');
 };
 
 const Logo = styled.h1`

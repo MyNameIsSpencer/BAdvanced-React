@@ -3,6 +3,7 @@ import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import Form from './styles/Form';
 import Error from './ErrorMessage';
+import { CURRENT_USER_QUERY } from './User';
 
 const SIGNUP_MUTATION = gql`
   mutation SIGNUP_MUTATION($email: String!, $name: String!, $password: String!) {
@@ -14,24 +15,41 @@ const SIGNUP_MUTATION = gql`
   }
 `;
 
+// <Mutation mutation={SIGNUP_MUTATION} variables={this.state}>
+//   {(signup, { error, loading }) => (
+//     <Form method="post" onSubmit={async e => {
+//       e.preventDefault();
+//       await signup();
+//       this.setState({ name: '', email: '', password: '' });
+//     }}>
+
+
 class Signup extends Component {
   state = {
     name: '',
     password: '',
     email: '',
-  }
+  };
   saveToState = e => {
-    this.saveState({ [e.target.name]: e.target.value });
+    this.setState({ [e.target.name]: e.target.value });
   };
   render() {
     return (
-      <Mutation mutation={SIGNUP_MUTATION} variables={this.state}>
+      <Mutation
+        mutation={SIGNUP_MUTATION}
+        variables={this.state}
+        refetchQueries={[{ query: CURRENT_USER_QUERY }]}
+      >
         {(signup, { error, loading }) => (
-          <Form method="post" onSubmit={async e => {
-            e.preventDefault();
-            await signup();
-            this.setState({ name: '', email: '', password: '' });
-          }}>
+          <Form
+            method="post"
+            onSubmit={async e => {
+              e.preventDefault();
+              await signup();
+              this.setState({ name: '', email: '', password: '' });
+            }}
+          >
+
             <fieldset disabled={loading} aria-busy={loading}>
               <h2>Sign Up for An Account</h2>
               <Error error={error} />
@@ -56,7 +74,7 @@ class Signup extends Component {
                 />
               </label>
               <label htmlFor="password">
-                Email
+                Password
                 <input
                   type="password"
                   name="password"

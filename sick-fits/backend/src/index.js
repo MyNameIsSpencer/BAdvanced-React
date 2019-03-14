@@ -1,4 +1,5 @@
 const cookieParser = require('cookie-parser');
+const jwt = require('jsonwebtoken');
 
 require('dotenv').config({ path: 'variables.env' });
 const createServer = require('./createServer');
@@ -9,7 +10,16 @@ const server = createServer();
 //  allows us to use any express middleware;  VVV allows us to access all cookies in nice formatted object
 server.express.use(cookieParser());
 
-// TODO Use express middleware to populate current user
+// decode the JWT so we can get the user Id on each request
+server.express.use((req, res, next) => {
+  const { token } = req.cookies;
+  if (token) {
+    const { userId } = jwt.verify(token, process.env.APP_SECRET);
+    // put the userId onto the req for futre requests to access
+    req.userId = userId;
+  }
+  next();
+});
 
 server.start(
   {
