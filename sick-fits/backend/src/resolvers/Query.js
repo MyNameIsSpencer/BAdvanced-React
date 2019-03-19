@@ -6,18 +6,20 @@ const Query = {
   item: forwardTo('db'),
   itemsConnection: forwardTo('db'),
   me(parent, args, ctx, info) {
-    // chceck if there is a current user ID
+    // check if there is a current user ID
     if (!ctx.request.userId) {
       return null;
     }
     return ctx.db.query.user(
-      { where: { id: ctx.request.userId }, },
-      info    // <<< actual query from client side
+      {
+        where: { id: ctx.request.userId },
+      },
+      info
     );
   },
   async users(parent, args, ctx, info) {
     // 1. Check if they are logged in
-    if (!ctx.requrest.userId) {
+    if (!ctx.request.userId) {
       throw new Error('You must be logged in!');
     }
     console.log(ctx.request.userId);
@@ -27,20 +29,6 @@ const Query = {
     // 2. if they do, query all the users!
     return ctx.db.query.users({}, info);
   },
-
-// async items(parent, args, ctx, info) {
-// console.log('Getting Items!!');
-// const items = await ctx.db.query.items();
-// return items;
-// }
-
-// const Query = {
-//   dogs(parent, args, ctx, info) {
-//     global.dogs = global.dogs || [];
-//     return global.dogs;
-//     // return [{ name: 'Snickers' }, { name: 'Sunny' }];
-//   },
-// };
 };
 
 module.exports = Query;
