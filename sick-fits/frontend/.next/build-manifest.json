@@ -14,14 +14,6 @@
     "/signup": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
-    ],
-    "/items": [
-      "static/runtime/webpack.js",
-      "static/runtime/main.js"
-    ],
-    "/permissions": [
-      "static/runtime/webpack.js",
-      "static/runtime/main.js"
     ]
   }
 }
