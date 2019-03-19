@@ -32,7 +32,6 @@ export default class Item extends Component {
           </Link>
           <button>Add To Cart</button>
           <DeleteItem id={item.id}>Delete This Item</DeleteItem>
-          // <button>Delete </button>
         </div>
       </ItemStyles>
     );
