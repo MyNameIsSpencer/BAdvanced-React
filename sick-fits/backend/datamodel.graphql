@@ -15,6 +15,7 @@ type User {
   resetToken: String
   resetTokenExpiry: String
   permissions: [Permission]
+  cart: [CartItem!]!
 }
 
 type Item {
@@ -28,4 +29,11 @@ type Item {
   # createAt: DateTime!   << Don't need, there by default
   # updatedAt: DateTime!   << Don't need, there by default
   # user: User!
+}
+
+type CartItem {
+  id: ID! @unique
+  quantity: Int! @unique
+  item: Item! # relationship to Item
+  user: User! # relationship to User
 }
