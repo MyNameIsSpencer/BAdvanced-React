@@ -28,12 +28,11 @@ type Item {
   user: User!
   # createAt: DateTime!   << Don't need, there by default
   # updatedAt: DateTime!   << Don't need, there by default
-  # user: User!
 }
 
 type CartItem {
   id: ID! @unique
-  quantity: Int! @unique
+  quantity: Int! @default(value: 1)
   item: Item! # relationship to Item
   user: User! # relationship to User
 }
