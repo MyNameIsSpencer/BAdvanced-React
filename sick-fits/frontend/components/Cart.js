@@ -43,9 +43,11 @@ const Cart = () => (
                     </p>
                   </header>
                   <ul>
+                    {me.cart.map(cartItem => <CartItem key={cartItem.id} cartItem={cartItem} />)}
                   </ul>
                   <footer>
                     <p> Your total is this much </p>
+                    <p>{formatMoney(calcTotalPrice(me.cart))}</p>
                     <SickButton>Checkout</SickButton>
                   </footer>
                 </CartStyles>
@@ -60,14 +62,3 @@ const Cart = () => (
 
 export default Cart;
 export { LOCAL_STATE_QUERY, TOGGLE_CART_MUTATION };
-
-
-
-// <ul>
-//   {me.cart.map(cartItem => <CartItem key={cartItem.id} cartItem={cartItem} />)}
-// </ul>
-// <footer>
-//   <p> Your total is this much </p>
-//   <p>{formatMoney(calcTotalPrice(me.cart))}</p>
-//   <SickButton>Checkout</SickButton>
-// </footer>

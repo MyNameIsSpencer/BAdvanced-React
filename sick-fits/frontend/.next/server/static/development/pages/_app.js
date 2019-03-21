@@ -223,22 +223,38 @@ var Cart = function Cart() {
             lineNumber: 45
           },
           __self: this
-        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("footer", {
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 47
-          },
-          __self: this
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        }, me.cart.map(function (cartItem) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CartItem__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            key: cartItem.id,
+            cartItem: cartItem,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 46
+            },
+            __self: this
+          });
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("footer", {
           __source: {
             fileName: _jsxFileName,
             lineNumber: 48
           },
           __self: this
-        }, " Your total is this much "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styles_SickButton__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           __source: {
             fileName: _jsxFileName,
             lineNumber: 49
+          },
+          __self: this
+        }, " Your total is this much "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 50
+          },
+          __self: this
+        }, Object(_lib_formatMoney__WEBPACK_IMPORTED_MODULE_10__["default"])(Object(_lib_calcTotalPrice__WEBPACK_IMPORTED_MODULE_9__["default"])(me.cart))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styles_SickButton__WEBPACK_IMPORTED_MODULE_7__["default"], {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 51
           },
           __self: this
         }, "Checkout")));
@@ -248,14 +264,7 @@ var Cart = function Cart() {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Cart);
- // <ul>
-//   {me.cart.map(cartItem => <CartItem key={cartItem.id} cartItem={cartItem} />)}
-// </ul>
-// <footer>
-//   <p> Your total is this much </p>
-//   <p>{formatMoney(calcTotalPrice(me.cart))}</p>
-//   <SickButton>Checkout</SickButton>
-// </footer>
+
 
 /***/ }),
 
