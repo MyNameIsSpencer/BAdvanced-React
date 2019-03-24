@@ -36,10 +36,7 @@ const Mutations = {
     const updates = { ...args };
     // remove the ID from the updates
     delete updates.id;
-
-    // run the update method;  db is how we expose the prisma database;
-    // mutation gives access to all mutations in prisma.graphql Mutations object
-    // Looking at prisma.graphql, updateItem takes (data: ItemUPdateInput!, where: ItemWhereUniqueInput!): Item
+    // run the update method
     return ctx.db.mutation.updateItem(
       {
         data: updates,
@@ -264,10 +261,10 @@ const Mutations = {
       `{ id, user { id }}`
     );
     // 1.5 Make sure we found an item
-    if (!cartItem) throw new Error ('No CartItem Found!');
+    if (!cartItem) throw new Error('No CartItem Found!');
     // 2. Make sure they own that cart item
     if (cartItem.user.id !== ctx.request.userId) {
-      throw new Error('Cheatin huhhhh???');
+      throw new Error('Cheatin huhhhh');
     }
     // 3. Delete that cart item
     return ctx.db.mutation.deleteCartItem(
@@ -277,7 +274,6 @@ const Mutations = {
       info
     );
   },
-
   async createOrder(parent, args, ctx, info) {
     // 1. Query the current user and make sure they are signed in
     const { userId } = ctx.request;
@@ -296,7 +292,8 @@ const Mutations = {
     );
     // 2. recalculate the total for the price
     const amount = user.cart.reduce(
-      (tally, cartItem) => tally + cartItem.item.price * cartItem.quantity, 0
+      (tally, cartItem) => tally + cartItem.item.price * cartItem.quantity,
+      0
     );
     console.log(`Going to charge for a total of ${amount}`);
     // 3. Create the stripe charge (turn token into $$$)
@@ -315,7 +312,6 @@ const Mutations = {
       delete orderItem.id;
       return orderItem;
     });
-
     // 5. create the Order
     const order = await ctx.db.mutation.createOrder({
       data: {
@@ -338,14 +334,3 @@ const Mutations = {
 };
 
 module.exports = Mutations;
-
-
-
-//   // createDog(parent, args, ctx, info) {
-  //   //   globabl.dogs = global.dogs || [];
-  //   //   // create a dog!
-  //   //   const newDog = { name: args.name };
-  //   //   global.dogs.push(newDog);
-  //   //   return newDog;
-  //   //   console.log(args);
-  //   // },

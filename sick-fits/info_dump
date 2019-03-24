@@ -11,6 +11,17 @@ return (
 
 
 
+  type Item {
+    id: ID! @unique
+    title: String!
+    description: String!
+    image: String
+    largeImage: String
+    price: Int!
+    user: User!
+    # createAt: DateTime!   << Don't need, there by default
+    # updatedAt: DateTime!   << Don't need, there by default
+  }
 
 
 
@@ -158,3 +169,24 @@ return (
 
   export default CreateItem;
   export { CREATE_ITEM_MUTATION };
+
+
+
+
+
+
+
+
+
+
+
+  updateItem(parent, args, ctx, info) {
+    // first take a copy of the updates
+    const updates = { ...args };
+    // remove the ID from the updates
+    delete updates.id;
+
+    // run the update method;  db is how we expose the prisma database;
+    // mutation gives access to all mutations in prisma.graphql Mutations object
+    // Looking at prisma.graphql, updateItem takes (data: ItemUPdateInput!, where: ItemWhereUniqueInput!): Item
+    return ctx.db.mutation.updateItem(

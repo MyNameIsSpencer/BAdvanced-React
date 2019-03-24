@@ -26,8 +26,6 @@ type Item {
   largeImage: String
   price: Int!
   user: User!
-  # createAt: DateTime!   << Don't need, there by default
-  # updatedAt: DateTime!   << Don't need, there by default
 }
 
 type CartItem {

@@ -21,24 +21,25 @@ const CREATE_ORDER_MUTATION = gql`
       }
     }
   }
-`
+`;
 
 function totalItems(cart) {
   return cart.reduce((tally, cartItem) => tally + cartItem.quantity, 0);
 }
 
 class TakeMyMoney extends React.Component {
-  onToken = res => {
-    console.log('On Token Called');
+  onToken = async (res, createOrder) => {
+    console.log('On Token Called!');
     console.log(res.id);
     // manually call the mutation once we have the stripe token
-    createOrder({
+    const order = await createOrder({
       variables: {
         token: res.id,
       },
     }).catch(err => {
       alert(err.message);
     });
+    console.log(order);
   };
   render() {
     return (
@@ -50,16 +51,16 @@ class TakeMyMoney extends React.Component {
           >
             {createOrder => (
               <StripeCheckout
-              amount={calcTotalPrice(me.cart)}
-              name="Sick Fits"
-              description={`Order of ${totalItems(me.cart)} items!`}
-              image={me.cart[0].item && me.cart[0].item.image}
-              stripeKey="pk_test_h3u4x0duvoYyPUpPDZaiixwy00gxSMkCf9"
-              currency="USD"
-              email={me.email}
-              token={res => this.onToken(res)}
+                amount={calcTotalPrice(me.cart)}
+                name="Sick Fits"
+                description={`Order of ${totalItems(me.cart)} items!`}
+                image={me.cart.length && me.cart[0].item && me.cart[0].item.image}
+                stripeKey="pk_test_h3u4x0duvoYyPUpPDZaiixwy00gxSMkCf9"
+                currency="USD"
+                email={me.email}
+                token={res => this.onToken(res, createOrder)}
               >
-              {this.props.children}
+                {this.props.children}
               </StripeCheckout>
             )}
           </Mutation>
