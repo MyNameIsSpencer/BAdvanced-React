@@ -9,11 +9,10 @@ import Signout from './Signout';
 const Nav = () => (
   <User>
     {({ data: { me } }) => (
-      <NavStyles>
+      <NavStyles data-test="nav">
         <Link href="/items">
           <a>Shop</a>
         </Link>
-
         {me && (
           <>
             <Link href="/sell">
@@ -22,7 +21,7 @@ const Nav = () => (
             <Link href="/orders">
               <a>Orders</a>
             </Link>
-            <Link href="/account">
+            <Link href="/me">
               <a>Account</a>
             </Link>
             <Signout />
@@ -40,6 +39,7 @@ const Nav = () => (
           <Link href="/signup">
             <a>Sign In</a>
           </Link>
+
         )}
       </NavStyles>
     )}
