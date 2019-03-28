@@ -235,3 +235,20 @@ Query.js
 // };
 //
 // module.exports = Query;
+
+
+
+
+Pagination
+// import React from 'react';
+// import PaginationStyles from './styles/PaginationStyles';
+//
+// const Pagination = props => (
+//   <PaginationStyles>
+//     <p>Welcome to pagination!</p>
+//   </PaginationStyles>
+// )
+//
+// export default Pagination;
+//
+//
