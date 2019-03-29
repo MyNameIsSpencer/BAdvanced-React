@@ -29,20 +29,4 @@ describe('<RequestReset/>', () => {
     expect(toJSON(form)).toMatchSnapshot();
   });
 
-  test('calls the mutation', async () => {
-    const wrapper = mount(
-      <MockedProvider mocks={mocks}>
-        <RequestReset />
-      </MockedProvider>
-    );
-    // simulate typing an email
-    wrapper.find('input').simulate('change', { target: { name: 'email', value: 'wesbos@gmail.com' }});
-    // submit the form
-    wrapper.find('form').simulate('submit');
-    await wait();
-    wrapper.update();
-    expect(wrapper.find('p').text()).toContain('Success! Check your email for a reset link!');
-
-  });
-
 });
