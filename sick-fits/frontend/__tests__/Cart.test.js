@@ -25,22 +25,15 @@ const mocks = [
 ];
 
 describe('<Cart/>', () => {
-
-  test('placeholder', () => {
-    let a = 3;
-    expect(a).toEqual(3);
+  test('renders and matches snappy', async () => {
+    const wrapper = mount(
+      <MockedProvider mocks={mocks}>
+        <Cart />
+      </MockedProvider>
+    );
+    await wait();
+    wrapper.update();
+    expect(toJSON(wrapper.find('header'))).toMatchSnapshot();
+    expect(wrapper.find('CartItem')).toHaveLength(1);
   });
-
-
-  // test('renders and matches snappy', async () => {
-  //   const wrapper = mount(
-  //     <MockedProvider mocks={mocks}>
-  //       <Cart />
-  //     </MockedProvider>
-  //   );
-  //   await wait();
-  //   wrapper.update();
-  //   expect(toJSON(wrapper.find('header'))).toMatchSnapshot();
-  //   expect(wrapper.find('CartItem')).toHaveLength(1);
-  // });
 });

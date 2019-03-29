@@ -44,61 +44,54 @@ const mocks = [
 ];
 
 describe('<AddToCart/>', () => {
-
-  test('placeholder', () => {
-    let a = 3;
-    expect(a).toEqual(3);
+  test('renders and matches the snap shot', async () => {
+    const wrapper = mount(
+      <MockedProvider mocks={mocks}>
+        <AddToCart id="abc123" />
+      </MockedProvider>
+    );
+    await wait();
+    wrapper.update();
+    expect(toJSON(wrapper.find('button'))).toMatchSnapshot();
   });
 
+  test('adds an item to cart when clicked', async () => {
+    let apolloClient;
+    const wrapper = mount(
+      <MockedProvider mocks={mocks}>
+        <ApolloConsumer>
+          {client => {
+            apolloClient = client;
+            return <AddToCart id="abc123" />;
+          }}
+        </ApolloConsumer>
+      </MockedProvider>
+    );
+    await wait();
+    wrapper.update();
+    const { data: { me } } = await apolloClient.query({ query: CURRENT_USER_QUERY });
+    console.log(me);
+    expect(me.cart).toHaveLength(0);
+    // add an item to the cart
+    wrapper.find('button').simulate('click');
+    await wait();
+    // check if the item is in the cart
+    const { data: { me: me2 } } = await apolloClient.query({ query: CURRENT_USER_QUERY });
+    expect(me2.cart).toHaveLength(1);
+    expect(me2.cart[0].id).toBe('omg123');
+    expect(me2.cart[0].quantity).toBe(3);
+  });
 
-  // test('renders and matches the snap shot', async () => {
-  //   const wrapper = mount(
-  //     <MockedProvider mocks={mocks}>
-  //       <AddToCart id="abc123" />
-  //     </MockedProvider>
-  //   );
-  //   await wait();
-  //   wrapper.update();
-  //   expect(toJSON(wrapper.find('button'))).toMatchSnapshot();
-  // });
-  //
-  // test('adds an item to cart when clicked', async () => {
-  //   let apolloClient;
-  //   const wrapper = mount(
-  //     <MockedProvider mocks={mocks}>
-  //       <ApolloConsumer>
-  //         {client => {
-  //           apolloClient = client;
-  //           return <AddToCart id="abc123" />;
-  //         }}
-  //       </ApolloConsumer>
-  //     </MockedProvider>
-  //   );
-  //   await wait();
-  //   wrapper.update();
-  //   const { data: { me } } = await apolloClient.query({ query: CURRENT_USER_QUERY });
-  //   console.log(me);
-  //   expect(me.cart).toHaveLength(0);
-  //   // add an item to the cart
-  //   wrapper.find('button').simulate('click');
-  //   await wait();
-  //   // check if the item is in the cart
-  //   const { data: { me: me2 } } = await apolloClient.query({ query: CURRENT_USER_QUERY });
-  //   expect(me2.cart).toHaveLength(1);
-  //   expect(me2.cart[0].id).toBe('omg123');
-  //   expect(me2.cart[0].quantity).toBe(3);
-  // });
-  //
-  // test('changes from add to adding when clicked', async () => {
-  //   const wrapper = mount(
-  //     <MockedProvider>
-  //       <AddToCart id="abc123" />
-  //     </MockedProvider>
-  //   );
-  //   await wait();
-  //   wrapper.update();
-  //   expect(wrapper.text()).toContain('Add To Cart');
-  //   wrapper.find('button').simulate('click');
-  //   expect(wrapper.text()).toContain('Adding To Cart');
-  // });
+  test('changes from add to adding when clicked', async () => {
+    const wrapper = mount(
+      <MockedProvider>
+        <AddToCart id="abc123" />
+      </MockedProvider>
+    );
+    await wait();
+    wrapper.update();
+    expect(wrapper.text()).toContain('Add To Cart');
+    wrapper.find('button').simulate('click');
+    expect(wrapper.text()).toContain('Adding To Cart');
+  });
 });

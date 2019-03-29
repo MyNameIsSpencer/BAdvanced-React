@@ -29,7 +29,7 @@ describe('<RequestReset/>', () => {
     expect(toJSON(form)).toMatchSnapshot();
   });
 
-  test.skip('calls the mutation', async () => {
+  test('calls the mutation', async () => {
     const wrapper = mount(
       <MockedProvider mocks={mocks}>
         <RequestReset />
