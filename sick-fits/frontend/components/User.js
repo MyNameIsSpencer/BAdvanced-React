@@ -3,30 +3,33 @@ import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 
 const CURRENT_USER_QUERY = gql`
-  query {
-    me {
+query {
+  me {
+    id
+    email
+    name
+    permissions
+    orders {
       id
-      email
-      name
-      permissions
-      cart {
+    }
+    cart {
+      id
+      quantity
+      item {
         id
-        quantity
-        item {
-          id
-          price
-          image
-          title
-          description
-        }
+        price
+        image
+        title
+        description
       }
     }
   }
+}
 `;
 
 const User = props => (
   <Query {...props} query={CURRENT_USER_QUERY}>
-    {payload => /*console.log(payload) ||*/ props.children(payload)}
+    {payload => props.children(payload)}
   </Query>
 );
 
@@ -36,3 +39,5 @@ User.propTypes = {
 
 export default User;
 export { CURRENT_USER_QUERY };
+
+// console.log(payload) ||  <<< originally in payload function

@@ -15,20 +15,11 @@ const SIGNUP_MUTATION = gql`
   }
 `;
 
-// <Mutation mutation={SIGNUP_MUTATION} variables={this.state}>
-//   {(signup, { error, loading }) => (
-//     <Form method="post" onSubmit={async e => {
-//       e.preventDefault();
-//       await signup();
-//       this.setState({ name: '', email: '', password: '' });
-//     }}>
-
-
 class Signup extends Component {
   state = {
     name: '',
-    password: '',
     email: '',
+    password: '',
   };
   saveToState = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -49,7 +40,6 @@ class Signup extends Component {
               this.setState({ name: '', email: '', password: '' });
             }}
           >
-
             <fieldset disabled={loading} aria-busy={loading}>
               <h2>Sign Up for An Account</h2>
               <Error error={error} />
@@ -94,3 +84,4 @@ class Signup extends Component {
 }
 
 export default Signup;
+export { SIGNUP_MUTATION };

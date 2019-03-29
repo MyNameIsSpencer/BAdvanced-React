@@ -26,7 +26,11 @@ class Signin extends Component {
   };
   render() {
     return (
-      <Mutation mutation={SIGNIN_MUTATION} variables={this.state} refetchQueries={[{ query: CURRENT_USER_QUERY }]}>
+      <Mutation
+        mutation={SIGNIN_MUTATION}
+        variables={this.state}
+        refetchQueries={[{ query: CURRENT_USER_QUERY }]}
+      >
         {(signup, { error, loading }) => (
           <Form
             method="post"
@@ -49,7 +53,7 @@ class Signin extends Component {
                   onChange={this.saveToState}
                 />
               </label>
-              <label htmlFor="email">
+              <label htmlFor="password">
                 Password
                 <input
                   type="password"
@@ -65,9 +69,8 @@ class Signin extends Component {
           </Form>
         )}
       </Mutation>
-    )
+    );
   }
 }
-
 
 export default Signin;

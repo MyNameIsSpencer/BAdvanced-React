@@ -12,27 +12,32 @@ Person.prototype.fetchFavFoods = function() {
 };
 
 describe('mocking learning', () => {
-  test('mocs a reg function', () => {
-    const fetchDogs = jest.fn();
-    fetchDogs('snickers');
-    expect(fetchDogs).toHaveBeenCalled();
-    expect(fetchDogs).toHaveBeenCalledWith('snickers');
-    fetchDogs('hugo');
-    expect(fetchDogs).toHaveBeenCalledTimes(2);
+  test('placeholder', () => {
+    expect(3).toEqual(3);
   });
 
-  it('can create a person', () => {
-    const me = new Person('Wes', ['pizza', 'burgs']);
-    expect(me.name).toBe('Wes');
-  });
 
-  test('can create a person', () => {
-    const me = new Person('Wes', ['pizza', 'burgs']);
-    // mock the favFoods function
-    // no longer using above API
-    me.fetchFavFoods = jest.fn().mockResolvedValue(['sushi', 'ramen']);
-    const favFoods = await me.fetchFavFoods();
-    console.log(favFoods);
-    expect(favFoods).toContain('sushi');
-  });
+  // test('mocs a reg function', () => {
+  //   const fetchDogs = jest.fn();
+  //   fetchDogs('snickers');
+  //   expect(fetchDogs).toHaveBeenCalled();
+  //   expect(fetchDogs).toHaveBeenCalledWith('snickers');
+  //   fetchDogs('hugo');
+  //   expect(fetchDogs).toHaveBeenCalledTimes(2);
+  // });
+  //
+  // it('can create a person', () => {
+  //   const me = new Person('Wes', ['pizza', 'burgs']);
+  //   expect(me.name).toBe('Wes');
+  // });
+  //
+  // test('can create a person', () => {
+  //   const me = new Person('Wes', ['pizza', 'burgs']);
+  //   // mock the favFoods function
+  //   // no longer using above API
+  //   me.fetchFavFoods = jest.fn().mockResolvedValue(['sushi', 'ramen']);
+  //   const favFoods = await me.fetchFavFoods();
+  //   console.log(favFoods);
+  //   expect(favFoods).toContain('sushi');
+  // });
 });
