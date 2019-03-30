@@ -698,6 +698,7 @@ var Nav = function Nav() {
   }, function (_ref) {
     var me = _ref.data.me;
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styles_NavStyles__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      "data-test": "nav",
       __source: {
         fileName: _jsxFileName,
         lineNumber: 12
@@ -720,52 +721,52 @@ var Nav = function Nav() {
       href: "/sell",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 19
+        lineNumber: 18
       },
       __self: this
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 20
+        lineNumber: 19
       },
       __self: this
     }, "Sell")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
       href: "/orders",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 22
+        lineNumber: 21
       },
       __self: this
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 23
+        lineNumber: 22
       },
       __self: this
     }, "Orders")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
-      href: "/account",
+      href: "/me",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 24
+      },
+      __self: this
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
       __source: {
         fileName: _jsxFileName,
         lineNumber: 25
       },
       __self: this
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 26
-      },
-      __self: this
     }, "Account")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Signout__WEBPACK_IMPORTED_MODULE_7__["default"], {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 28
+        lineNumber: 27
       },
       __self: this
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_apollo__WEBPACK_IMPORTED_MODULE_2__["Mutation"], {
       mutation: _Cart__WEBPACK_IMPORTED_MODULE_3__["TOGGLE_CART_MUTATION"],
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 29
+        lineNumber: 28
       },
       __self: this
     }, function (toggleCart) {
@@ -773,7 +774,7 @@ var Nav = function Nav() {
         onClick: toggleCart,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 31
+          lineNumber: 30
         },
         __self: this
       }, "My Cart", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CartCount__WEBPACK_IMPORTED_MODULE_6__["default"], {
@@ -782,7 +783,7 @@ var Nav = function Nav() {
         }, 0),
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 33
+          lineNumber: 32
         },
         __self: this
       }));
@@ -790,13 +791,13 @@ var Nav = function Nav() {
       href: "/signup",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 40
+        lineNumber: 39
       },
       __self: this
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 41
+        lineNumber: 40
       },
       __self: this
     }, "Sign In")));
@@ -940,11 +941,12 @@ function (_Component) {
 /*!**************************************!*\
   !*** ./components/RemoveFromCart.js ***!
   \**************************************/
-/*! exports provided: default */
+/*! exports provided: default, REMOVE_FROM_CART_MUTATION */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REMOVE_FROM_CART_MUTATION", function() { return REMOVE_FROM_CART_MUTATION; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-apollo */ "./node_modules/react-apollo/react-apollo.browser.umd.js");
@@ -1022,12 +1024,12 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(RemoveFromCart)).call.apply(_getPrototypeOf2, [this].concat(args)));
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "update", function (cache, payload) {
-      console.log('Running remove from cart update fn'); // 1. first read the cache
-
+      // console.log('Running remove from cart update fn');
+      // 1. first read the cache
       var data = cache.readQuery({
         query: _User__WEBPACK_IMPORTED_MODULE_5__["CURRENT_USER_QUERY"]
-      });
-      console.log(data); // 2. remove that item from the cart
+      }); // console.log(data);
+      // 2. remove that item from the cart
 
       var cartItemId = payload.data.removeFromCart.id;
       data.me.cart = data.me.cart.filter(function (cartItem) {
@@ -1051,6 +1053,14 @@ function (_React$Component) {
         variables: {
           id: this.props.id
         },
+        update: this.update,
+        optimisticRespnse: {
+          __typename: 'Mutation',
+          removeFromCart: {
+            __typename: 'CartItem',
+            id: this.props.id
+          }
+        },
         __source: {
           fileName: _jsxFileName,
           lineNumber: 44
@@ -1069,7 +1079,7 @@ function (_React$Component) {
           title: "Delete Item",
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 46
+            lineNumber: 57
           },
           __self: this
         }, "\xD7");
@@ -1085,6 +1095,7 @@ _defineProperty(RemoveFromCart, "propTypes", {
 });
 
 /* harmony default export */ __webpack_exports__["default"] = (RemoveFromCart);
+
 
 /***/ }),
 
@@ -1413,11 +1424,12 @@ var Signout = function Signout(props) {
 /*!***********************************!*\
   !*** ./components/TakeMyMoney.js ***!
   \***********************************/
-/*! exports provided: default */
+/*! exports provided: default, CREATE_ORDER_MUTATION */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CREATE_ORDER_MUTATION", function() { return CREATE_ORDER_MUTATION; });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
@@ -1523,10 +1535,11 @@ function (_React$Component) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                console.log('On Token Called!');
-                console.log(res.id); // manually call the mutation once we have the stripe token
+                nprogress__WEBPACK_IMPORTED_MODULE_5___default.a.start(); // console.log('On Token Called!');
+                // console.log(res.id);
+                // manually call the mutation once we have the stripe token
 
-                _context.next = 4;
+                _context.next = 3;
                 return createOrder({
                   variables: {
                     token: res.id
@@ -1535,11 +1548,16 @@ function (_React$Component) {
                   alert(err.message);
                 });
 
-              case 4:
+              case 3:
                 order = _context.sent;
-                console.log(order);
+                next_router__WEBPACK_IMPORTED_MODULE_4___default.a.push({
+                  pathname: '/order',
+                  query: {
+                    id: order.data.createOrder.id
+                  }
+                }); // console.log(order);
 
-              case 6:
+              case 5:
               case "end":
                 return _context.stop();
             }
@@ -1563,11 +1581,13 @@ function (_React$Component) {
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_User__WEBPACK_IMPORTED_MODULE_10__["default"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 46
+          lineNumber: 51
         },
         __self: this
       }, function (_ref2) {
-        var me = _ref2.data.me;
+        var me = _ref2.data.me,
+            loading = _ref2.loading;
+        if (loading) return null;
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_apollo__WEBPACK_IMPORTED_MODULE_3__["Mutation"], {
           mutation: CREATE_ORDER_MUTATION,
           refetchQueries: [{
@@ -1575,7 +1595,7 @@ function (_React$Component) {
           }],
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 48
+            lineNumber: 55
           },
           __self: this
         }, function (createOrder) {
@@ -1592,7 +1612,7 @@ function (_React$Component) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 53
+              lineNumber: 60
             },
             __self: this
           }, _this2.props.children);
@@ -1605,6 +1625,7 @@ function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_1___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (TakeMyMoney);
+
 
 /***/ }),
 
@@ -1632,7 +1653,7 @@ var _jsxFileName = "/Users/thisismyname/Desktop/active_projects/wesbosadvancedgr
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  query {\n    me {\n      id\n      email\n      name\n      permissions\n      cart {\n        id\n        quantity\n        item {\n          id\n          price\n          image\n          title\n          description\n        }\n      }\n    }\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\nquery {\n  me {\n    id\n    email\n    name\n    permissions\n    orders {\n      id\n    }\n    cart {\n      id\n      quantity\n      item {\n        id\n        price\n        image\n        title\n        description\n      }\n    }\n  }\n}\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -1653,11 +1674,11 @@ var User = function User(props) {
     query: CURRENT_USER_QUERY,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 28
+      lineNumber: 31
     },
     __self: this
   }), function (payload) {
-    return console.log(payload) || props.children(payload);
+    return props.children(payload);
   });
 };
 
@@ -1665,7 +1686,7 @@ User.propTypes = {
   children: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func.isRequired
 };
 /* harmony default export */ __webpack_exports__["default"] = (User);
-
+ // console.log(payload) ||  <<< originally in payload function
 
 /***/ }),
 
