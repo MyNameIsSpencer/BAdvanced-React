@@ -273,3 +273,26 @@ test('calls the mutation', async () => {
   console.log(wrapper);
   expect(wrapper.find('p').text()).toContain('Success! Check your email for a reset link!');
 });
+
+
+
+
+
+
+
+
+
+'https://sickfits-yoga-prod-prod.herokuapp.com/'
+'https://sickfits-next-prod-prod.herokuapp.com' has been blocked by CORS policy:
+'https://sickfits-next-prod-prod.herokuapp.com/' that is not equal to the supplied
+
+
+
+
+
+h at 'https://sickfits-yoga-prod-prod.herokuapp.com/'
+from origin 'https://sickfits-next-prod-prod.herokuapp.com' has been blocked by CORS policy:
+Response to preflight request doesn't pass access control check: The 'Access-Control-Allow-Origin'
+header has a value 'https://sickfits-next-prod-prod.herokuapp.com/' that is not equal to the supplied
+origin. Have the server send the header with a valid value, or, if an opaque response serves your needs,
+ set the request's mode to 'no-co
